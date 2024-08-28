@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مخاوي (قسم الصوتيات الاسلاميه)</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #audio-player { margin-top: 20px; }
+        .track { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>مخاوي(صوتيات اسلاميه)</h1>
+    <div id="track-list"></div>
+    <div id="audio-player">
+        <audio id="audio" controls>
+            <source id="audio-source" src="" type="audio/mpeg">
+            متصفحك لا يدعم عنصر الصوت.
+        </audio>
+    </div>
+
+    <script>
+        // قائمة المسارات الصوتية
+        const tracks = [
+            { title: ' اذان الحرم المكي', src: 'videoplayback (5).m4a.crdownload' },
+            { title: 'الاذان الاردني', src: 'videoplayback (6).m4a' },
+            { title: 'سوره البقره (العفاسي)', src: 'videoplayback (7).m4a' }
+        ];
+
+        // عرض قائمة المسارات
+        function displayTracks() {
+            const trackList = document.getElementById('track-list');
+            trackList.innerHTML = '';
+
+            tracks.forEach((track, index) => {
+                const trackElement = document.createElement('div');
+                trackElement.className = 'track';
+                trackElement.innerHTML = `
+                    <button onclick="playTrack(${index})">${track.title}</button>
+                `;
+                trackList.appendChild(trackElement);
+            });
+        }
+
+        // تشغيل المسار المحدد
+        function playTrack(index) {
+            const audioElement = document.getElementById('audio');
+            const audioSource = document.getElementById('audio-source');
+            audioSource.src = tracks[index].src;
+            audioElement.load();
+            audioElement.play();
+        }
+
+        // عرض المسارات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', displayTracks);
+    </script>
+</body>
+</html>

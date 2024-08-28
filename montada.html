@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </title>منتديات مخاوي</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #topics { margin-top: 20px; }
+        .topic { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; }
+        .comments { margin-top: 10px; }
+        .comment { border-top: 1px solid #ddd; padding-top: 5px; margin-top: 5px; }
+        textarea { width: 100%; }
+        button { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>المنتدى</h1>
+
+    <form id="new-topic-form">
+        <h2>المنتدى الاصلي لمخاوي</h2>
+        <input type="text" id="topic-title" placeholder="اسمك او لقبك" required>
+        <textarea id="topic-content" placeholder="اكتب موضوعا" required></textarea>
+        <button type="submit">نشر الموضوع</button>
+    </form>
+
+    <div id="topics"></div>
+
+    <script>
+        // تحميل المواضيع من localStorage
+        document.addEventListener('DOMContentLoaded', () => {
+            displayTopics();
+        });
+
+        // إضافة موضوع جديد
+        document.getElementById('new-topic-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const title = document.getElementById('topic-title').value;
+            const content = document.getElementById('topic-content').value;
+
+            if (title && content) {
+                const topics = JSON.parse(localStorage.getItem('topics')) || [];
+                const newTopic = {
+                    id: Date.now(), // استخدام الطابع الزمني كمعرف فريد
+                    title,
+                    content,
+                    comments: []
+                };
+                topics.push(newTopic);
+                localStorage.setItem('topics', JSON.stringify(topics));
+                displayTopics();
+                document.getElementById('new-topic-form').reset();
+            }
+        });
+
+        // عرض المواضيع
+        function displayTopics() {
+            const topics = JSON.parse(localStorage.getItem('topics')) || [];
+            const topicsContainer = document.getElementById('topics');
+            topicsContainer.innerHTML = '';
+
+            topics.forEach(topic => {
+                const topicElement = document.createElement('div');
+                topicElement.className = 'topic';
+                topicElement.innerHTML = `
+                    <h3>${topic.title}</h3>
+                    <p>${topic.content}</p>
+                    <form class="comment-form">
+                        <textarea class="comment-content" placeholder="أضف تعليقًا"></textarea>
+                        <button type="submit">نشر تعليق</button>
+                    </form>
+                    <div class="comments">
+                        ${topic.comments.map(comment => `<div class="comment">${comment}</div>`).join('')}
+                    </div>
+                `;
+                topicsContainer.appendChild(topicElement);
+
+                // إضافة تعليق
+                topicElement.querySelector('.comment-form').addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    const commentContent = topicElement.querySelector('.comment-content').value;
+
+                    if (commentContent) {
+                        topic.comments.push(commentContent);
+                        localStorage.setItem('topics', JSON.stringify(topics));
+                        displayTopics(); // إعادة عرض المواضيع لتحديث التعليقات
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>

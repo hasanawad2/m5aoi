@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!--for arabic text-->
+    <title> m5aoi 2008</title>
+    </head>
+    <body>
+   <marquee><h2>اهلا بكم في موقع و منتديات مخاوي</h2></marquee>    
+   
+<!--سيتعاقب من ينسخ برمجه هذا الموقع من خلال اختراق موقعه-->
+ 
+<center><img src="450543281_122102482208399845_731525953188489851_n.jpg"></center>
+
+<br>
+<center><a href="file:///D:/Shai%20ma5oi/text.html"><h4>**ترحيب نصي**</h4></a></center>> <!--for links-->
+<center><a href="file:///D:/Shai%20ma5oi/montada.html"><h2>**دخول المنتدى**</h2></a></center==-
+<center><a href="file:///D:/Shai%20ma5oi/montada%20games.html"><h2>**العاب المنتدى**</h2></a></center>
+<center><a href="file:///D:/Shai%20ma5oi/sawtiyat%20islamia.html"><h2>**صوتيات اسلاميه**</h2></a></center>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الساعة في الأردن</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #clock { font-size: 35px; font-weight: bold; }
+        #date { font-size: 24px; color: gray; }
+    </style>
+</head>
+<body>
+    <center><h3>الساعه بتوقيت الأردن/عمان</h3></center>
+    <center><div id="clock">00:00:00</div></center>
+    <center><div id="date">YYYY-MM-DD</div></center>
+
+    <script>
+        function updateTime() {
+            const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Asia/Amman' };
+            const optionsDate = { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'Asia/Amman' };
+            
+            const now = new Date();
+            const timeString = new Intl.DateTimeFormat('en-US', optionsTime).format(now);
+            const dateString = new Intl.DateTimeFormat('en-US', optionsDate).format(now);
+
+            document.getElementById('clock').textContent = timeString;
+            document.getElementById('date').textContent = dateString;
+        }
+
+        // تحديث الوقت كل ثانية
+        setInterval(updateTime, 1000);
+
+        // عرض الوقت عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', updateTime);
+    </script>
+</body>
+</html>
+    
